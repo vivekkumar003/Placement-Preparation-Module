@@ -1,0 +1,31 @@
+string longestPalinSubstring(string str)
+{
+    // Write your code here.
+
+    int n = str.size();
+
+    string ans;
+
+    int start = 0, end = 0, maxi =0 ;
+
+    for(int i = 0; i < n; ++i)
+    {
+        string oddCase = helper(str, i, i);
+
+        if(oddCase.length() > maxi)        
+        {
+            ans = oddCase;
+            maxi = oddCase.length();
+        }
+
+        string evenCase = helper(str, i, i+1);
+        
+        if(evenCase.length() > maxi)
+        {
+            ans = evenCase;
+            maxi = evenCase.length();
+        }
+    }
+
+    return ans;
+}
