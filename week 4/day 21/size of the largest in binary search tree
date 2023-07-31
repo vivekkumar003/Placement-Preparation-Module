@@ -1,0 +1,36 @@
+
+class f{
+  public:
+    int maxi,mini,maxv,s;
+    f(int maxi,int mini,int s)
+    {
+        this->maxi=maxi;
+        this->mini=mini;
+     
+        this->s=s;
+    }
+};
+int maxi=INT_MIN;
+
+class Solution {
+public:
+    f f1(TreeNode* root)
+    {
+        if(root==NULL)
+            return f(INT_MIN,INT_MAX,0);
+        f l=f1(root->left);
+        f r=f1(root->right);
+        if(root->val>l.maxi and root->val<r.mini)
+        {
+             maxi=max({maxi,l.s+r.s+root->val});
+           
+            return f(max(r.maxi,root->val),min(l.mini,root->val),root->val+l.s+r.s);
+        }
+        return f(INT_MAX,INT_MIN,0); 
+    }
+    int maxSumBST(TreeNode* root) {
+        maxi=INT_MIN;
+        f a=f1(root);
+        return (maxi<0)?0:maxi;
+    }
+};
